@@ -1,5 +1,6 @@
 import nltk 
 import pandas as pd
+import numpy as np
 from textblob import TextBlob
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from transformers import pipeline
@@ -7,7 +8,6 @@ from transformers import pipeline
 df = pd.read_csv(r'fox.csv')
 df = df['text']
 print(df)
-
 
 def sentiment_scores_vader(file):
     scores = []

@@ -38,7 +38,6 @@ def get_title(file):
   with open(file) as infile:
     for line in infile:
       text = rtf_to_text(line)
-      #this is kinda just hardcoding...
       if "heading" in text or "Normal" in text or "|" in text or "\n" in text or "Load-Date" in text or len(text) == 0:
         continue
       else:
@@ -68,7 +67,10 @@ def get_body(file):
   to_print = False
   test_string = ""
   with open(file) as infile:
+      #content = infile.read()
+      #print(text)
       for line in infile:
+        #print(type(line))
         text = rtf_to_text(line)
         if "Body" in text:
           to_print = True
@@ -91,24 +93,19 @@ def make_doc(file, source_name):
   doc['text'] = get_body(file)
   return doc
 
-#import json
 
 data = {}
 data['docs'] = []
-# for filename in os.listdir("msnbcfox/") :
-#   if get_source("msnbcfox/"+filename) == "Fox News Network" :
-#     data['docs'].append(make_doc("msnbcfox/"+filename, "Fox News Network"))
+for filename in os.listdir("msnbcfox/") :
+  if get_source("msnbcfox/"+filename) == "MSNBC" :
+    data['docs'].append(make_doc("msnbcfox/"+filename, "MSNBC"))
 
-data['docs'].append(make_doc("msnbcfox2/Media Ignoring Legitimate Threats From China; California Politicians Targeted By Chinese Spy; Interv.RTF", "Fox News Network"))
+#data['docs'].append(make_doc("msnbcfox2/Media Ignoring Legitimate Threats From China; California Politicians Targeted By Chinese Spy; Interv.RTF", "Fox News Network"))
 
-#"test folder/fox.RTF"
 
-# data['docs'].append(make_doc("test folder/spartacus.RTF", "Washington Times"))
-# data['docs'].append(make_doc("test folder/fox.RTF", "Daily Beast"))
-# data['docs'].append(make_doc("test folder/russian.RTF", "Daily Beast"))
+#data['docs'].append(make_doc("test folder/spartacus.RTF", "Washington Times"))
+data['docs'].append(make_doc("test folder/fox.RTF", "Daily Beast"))
 
-# with open('data.txt', 'w') as outfile:
-#   json.dump(data, outfile)
 
 import numpy as np
 import pandas as pd
@@ -126,5 +123,5 @@ for doc in data['docs']:
 
 df = {'source' : source, 'date' : dates, 'text' : body}
 df = pd.DataFrame(df)
-df.to_csv("msnbctest2.csv")
+df.to_csv("msnbc.csv")
 
