@@ -4,14 +4,20 @@ from textblob import TextBlob
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from transformers import pipeline
 
-df = pd.read_csv(r"fox.csv")
+df = pd.read_csv(r'fox.csv')
+df = df['text']
+print(df)
 
-def sentiment_scores_vader(texts):
+
+def sentiment_scores_vader(file):
     scores = []
     analyzer = SentimentIntensityAnalyzer()
-    for text in texts :
-        sentiment_dict = analyzer.polarity_scores(text)
-        scores.append(sentiment_dict['compound'])
+    for line in file :
+        sentiment_dict = analyzer.polarity_scores(line)
+    #return sentiment_dict
+    scores.append(sentiment_dict)
     return scores 
 
-print(f"VADER:{sentiment_scores_vader("test folder/fox.RTF")}")
+#df['scores'] = df['text'].apply(lambda review: sid.polarity_scores(review))
+
+print(sentiment_scores_vader(df))

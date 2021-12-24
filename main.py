@@ -95,9 +95,13 @@ def make_doc(file, source_name):
 
 data = {}
 data['docs'] = []
-for filename in os.listdir("msnbcfox/") :
-  if get_source("msnbcfox/"+filename) == "Fox News Network" :
-    data['docs'].append(make_doc("msnbcfox/"+filename, "Fox News Network"))
+# for filename in os.listdir("msnbcfox/") :
+#   if get_source("msnbcfox/"+filename) == "Fox News Network" :
+#     data['docs'].append(make_doc("msnbcfox/"+filename, "Fox News Network"))
+
+data['docs'].append(make_doc("msnbcfox2/Media Ignoring Legitimate Threats From China; California Politicians Targeted By Chinese Spy; Interv.RTF", "Fox News Network"))
+
+#"test folder/fox.RTF"
 
 # data['docs'].append(make_doc("test folder/spartacus.RTF", "Washington Times"))
 # data['docs'].append(make_doc("test folder/fox.RTF", "Daily Beast"))
@@ -122,5 +126,5 @@ for doc in data['docs']:
 
 df = {'source' : source, 'date' : dates, 'text' : body}
 df = pd.DataFrame(df)
-df.to_csv("fox.csv")
+df.to_csv("msnbctest2.csv")
 
